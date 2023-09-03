@@ -1,6 +1,15 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
 
+const options = {
+  key: fs.readFileSync(
+    '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/privkey.pem/'
+  ),
+  cert: fs.readFileSync(
+    '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/fullchain.pem'
+  ),
+};
 const app = express();
 const port = 3000;
 app.use(express.json());
