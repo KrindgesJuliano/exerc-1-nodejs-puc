@@ -1,17 +1,27 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import fs from 'fs';
+import http from 'http';
+
+dotenv.config();
 
 const options = {
-  key: fs.readFileSync(
-    '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/privkey.pem/'
-  ),
-  cert: fs.readFileSync(
-    '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/fullchain.pem'
-  ),
+  key:
+    process.env.NODE_ENV === 'development'
+      ? ''
+      : fs.readFileSync(
+          '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/privkey.pem/'
+        ),
+  cert:
+    process.env.NODE_ENV === 'development'
+      ? ''
+      : fs.readFileSync(
+          '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/fullchain.pem'
+        ),
 };
 const app = express();
-const port = 3000;
+let port = process.env.PORT || 3000;
 app.use(express.json());
 
 const lista_produtos = {
@@ -105,6 +115,5 @@ app.delete('/produtos/:idProduct', (req, res) => {
 });
 
 app.use(cors());
-app.listen(port, () => {
-  console.log(`app running on port ${port}`);
-});
+http.createServer(options, app).listen(port);
+console.log(`listening on port ${port}`);
