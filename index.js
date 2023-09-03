@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
@@ -94,6 +95,7 @@ app.delete('/produtos/:idProduct', (req, res) => {
   }
 });
 
+app.use(cors());
 app.listen(port, () => {
   console.log(`app running on port ${port}`);
 });
