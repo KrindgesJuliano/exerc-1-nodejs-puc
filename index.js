@@ -11,7 +11,7 @@ const options = {
     process.env.NODE_ENV === 'development'
       ? ''
       : fs.readFileSync(
-          '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/privkey.pem/'
+          '/etc/letsencrypt/live/atividade1.vps.webdock.cloud/privkey.pem'
         ),
   cert:
     process.env.NODE_ENV === 'development'
